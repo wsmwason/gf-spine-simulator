@@ -1,0 +1,97 @@
+
+Nemeum.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+USL
+  rotate: true
+  xy: 267, 425
+  size: 79, 90
+  orig: 79, 90
+  offset: 0, 0
+  index: -1
+USR
+  rotate: false
+  xy: 2, 113
+  size: 66, 81
+  orig: 66, 81
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 327
+  size: 102, 101
+  orig: 102, 101
+  offset: 0, 0
+  index: -1
+gun
+  rotate: false
+  xy: 2, 430
+  size: 133, 74
+  orig: 133, 74
+  offset: 0, 0
+  index: -1
+gunB
+  rotate: true
+  xy: 359, 432
+  size: 26, 48
+  orig: 26, 48
+  offset: 0, 0
+  index: -1
+gunC
+  rotate: true
+  xy: 2, 2
+  size: 23, 42
+  orig: 23, 42
+  offset: 0, 0
+  index: -1
+gunL
+  rotate: false
+  xy: 448, 461
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+legL1
+  rotate: true
+  xy: 70, 254
+  size: 71, 54
+  orig: 71, 54
+  offset: 0, 0
+  index: -1
+legL2
+  rotate: true
+  xy: 359, 460
+  size: 44, 87
+  orig: 44, 87
+  offset: 0, 0
+  index: -1
+legR1
+  rotate: true
+  xy: 70, 183
+  size: 69, 53
+  orig: 69, 53
+  offset: 0, 0
+  index: -1
+legR2
+  rotate: false
+  xy: 2, 27
+  size: 42, 84
+  orig: 42, 84
+  offset: 0, 0
+  index: -1
+shiedL
+  rotate: true
+  xy: 137, 432
+  size: 72, 128
+  orig: 72, 128
+  offset: 0, 0
+  index: -1
+shieldR
+  rotate: false
+  xy: 2, 196
+  size: 66, 129
+  orig: 66, 129
+  offset: 0, 0
+  index: -1

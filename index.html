@@ -3,10 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Spine-pixi</title>
+	<style type="text/css">
+		* { margin: 0; padding: 0; }
+		#gameui { padding: 20px 0; }
+		canvas { border: 1px solid #000; }
+	</style>
 </head>
 <body>
-	<select id="selectCharacter"></select>
-	<select id="selectAnimation"></select>
+	<div id="gameui">
+		<span>人物：</span><select id="selectCharacter"></select>
+		<span>动作：</span><select id="selectAnimation"></select>
+		<span>缩放：</span><input id="selectScale" type="range" min="50" max="300" />
+		<span>X：</span><input id="selectX" type="range" min="0" max="800" />
+		<span>Y：</span><input id="selectY" type="range" min="0" max="800" />
+	</div>
 	<div id="container"></div>
 	<script src="js/jquery-1.12.1.min.js"></script>
 	<script src="js/pixi/pixi.js"></script>

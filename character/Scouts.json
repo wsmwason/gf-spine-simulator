@@ -1,15 +1,15 @@
 {
 "skeleton" : {"hash" : "kZP1xfI3bf4jicasV/JvS3nNjAM" , "spine" : "2.1.27" , "width" : 116.00 , "height" : 177.05 , "images" : "./image/" }, 
 "bones" : [
-{ "name" : "root","flipX" : false, "flipY" : false, "color" : "9b9b9bff"  },
-{ "name" : "body", "parent" : "root", "x" : -26.77, "y" : 105.36,"flipX" : false, "flipY" : false, "color" : "9b9b9bff"  },
-{ "name" : "shadow", "parent" : "root", "x" : 2.15, "y" : -1.24,"flipX" : false, "flipY" : false, "color" : "9b9b9bff"  },
-{ "name" : "gun1", "parent" : "body", "length" : 48.2872, "x" : 62.88, "y" : 40.93,"flipX" : false, "flipY" : false, "rotation" : -170.98, "color" : "9b9b9bff"  },
-{ "name" : "gun2", "parent" : "body", "length" : 51.9763, "x" : 50.22, "y" : 44.73,"flipX" : false, "flipY" : false, "rotation" : -169.30, "color" : "9b9b9bff"  },
-{ "name" : "legL", "parent" : "body", "length" : 92.7258, "x" : 8.02, "y" : -12.24,"flipX" : false, "flipY" : false, "rotation" : -65.83, "color" : "9b9b9bff"  },
-{ "name" : "legR", "parent" : "body", "length" : 74.7750, "x" : -6.75, "y" : -21.10,"flipX" : false, "flipY" : false, "rotation" : -65.45, "color" : "9b9b9bff"  },
-{ "name" : "muzzle", "parent" : "gun1", "x" : 51.36, "y" : -3.40,"flipX" : false, "flipY" : false, "color" : "9b9b9bff"  },
-{ "name" : "muzzle2", "parent" : "gun2", "x" : 53.61, "y" : -2.63,"flipX" : false, "flipY" : false, "color" : "9b9b9bff"  }
+{ "name" : "root", "color" : "9b9b9bff"  },
+{ "name" : "body", "parent" : "root", "x" : -26.77, "y" : 105.36, "color" : "9b9b9bff"  },
+{ "name" : "shadow", "parent" : "root", "x" : 2.15, "y" : -1.24, "color" : "9b9b9bff"  },
+{ "name" : "gun1", "parent" : "body", "length" : 48.2872, "x" : 62.88, "y" : 40.93, "rotation" : -170.98, "color" : "9b9b9bff"  },
+{ "name" : "gun2", "parent" : "body", "length" : 51.9763, "x" : 50.22, "y" : 44.73, "rotation" : -169.30, "color" : "9b9b9bff"  },
+{ "name" : "legL", "parent" : "body", "length" : 92.7258, "x" : 8.02, "y" : -12.24, "rotation" : -65.83, "color" : "9b9b9bff"  },
+{ "name" : "legR", "parent" : "body", "length" : 74.7750, "x" : -6.75, "y" : -21.10, "rotation" : -65.45, "color" : "9b9b9bff"  },
+{ "name" : "muzzle", "parent" : "gun1", "x" : 51.36, "y" : -3.40, "color" : "9b9b9bff"  },
+{ "name" : "muzzle2", "parent" : "gun2", "x" : 53.61, "y" : -2.63, "color" : "9b9b9bff"  }
 ],
 "slots" : [
 {"name" : "legR", "bone" : "legR", "color" : "ffffffff" , "attachment" : "legR" },

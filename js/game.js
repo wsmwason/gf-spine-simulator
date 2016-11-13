@@ -52,7 +52,9 @@ var preview = {
 		preview.canvas = $(".preCanvas");
 		preview.selectCharacter = $(".preSelectCharacter > select");
 		preview.selectAnimation = $(".preSelectAnimation > select");
+		preview.stopRole = $(".preStopRole");
 		preview.addRole = $(".preAddRole");
+		preview.isUpdate = true;
 
 		var stringCharacter = "<option>请选择</option>";
 		for(var i =0; i < player.character.length; i++){
@@ -70,6 +72,16 @@ var preview = {
 
 		preview.addRole.click(function(){
 			gameview.addRole(preview.name);
+		});
+
+		preview.stopRole.click(function(){
+			if(preview.isUpdate){
+				preview.isUpdate = false;
+				preview.stopRole.html("开始");
+			}else{
+				preview.isUpdate = true;
+				preview.stopRole.html("停止");
+			}
 		});
 
 		preview.selectScale = 1;
@@ -108,7 +120,7 @@ var preview = {
 		preview.lastTime = preview.nowTime;
 		preview.nowTime = new Date().getTime();
 		preview.animationFrame = window.requestAnimationFrame(preview.animate);
-		if(preview.spine)
+		if(preview.isUpdate && preview.spine)
 			preview.spine.update( (preview.nowTime - preview.lastTime) / 1000 );
 		preview.renderer.render(preview.stage);
 	},
@@ -128,7 +140,9 @@ var gameview = {
 		gameview.selectposX = $(".gameSelectposX > input");
 		gameview.selectposY = $(".gameSelectposY > input");
 		gameview.turnRole = $(".gameTurnRole");
+		gameview.stopRole = $(".gameStopRole");
 		gameview.removeRole = $(".gameRemoveRole");
+		gameview.isUpdate = true;
 
 		var stringCharacter = "<option>请选择</option>";
 		gameview.selectCharacter.html(stringCharacter);
@@ -163,7 +177,17 @@ var gameview = {
 
 		gameview.turnRole.click(function(){
 			gameview.focusRole.scale.x *= -1;
-		})
+		});
+
+		gameview.stopRole.click(function(){
+			if(gameview.isUpdate){
+				gameview.isUpdate = false;
+				gameview.stopRole.html("开始");
+			}else{
+				gameview.isUpdate = true;
+				gameview.stopRole.html("停止");
+			}
+		});
 
 		gameview.selectX = gameview.canvas.width() / 2;
 		gameview.selectY = gameview.canvas.height() / 2;
@@ -189,8 +213,9 @@ var gameview = {
 		gameview.nowTime = new Date().getTime();
 		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
 		gameview.fpsText.text = Math.floor(1000 / (gameview.nowTime - gameview.lastTime));
-		for(var i = 0; i < gameview.role.length; i++)
-			gameview.role[i].update( (gameview.nowTime - gameview.lastTime) / 1000);
+		if(gameview.isUpdate)
+			for(var i = 0; i < gameview.role.length; i++)
+				gameview.role[i].update( (gameview.nowTime - gameview.lastTime) / 1000);
 		if(gameview.focusRole){
 			gameview.focusRole.x = gameview.selectposX.val();
 			gameview.focusRole.y = gameview.selectposY.val();

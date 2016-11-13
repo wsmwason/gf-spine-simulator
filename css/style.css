@@ -1,0 +1,23 @@
+* { margin: 0; padding: 0; }
+html { font-size: 16px; }
+body { font-size: 1em; color: #fff; background: url(../images/bg.jpg) center no-repeat; background-size: cover; }
+
+.left { float: left; }
+.clear { clear: both; }
+
+.container { width: 56em; margin: 0 auto; padding: 4em 0; position: relative;}
+
+.header {  }
+.htitle { font-size: 2em; line-height: 1.5em; text-align: center; }
+
+.view { float: left; }
+.preview { width: 28em; }
+.Canvas { border: 1px solid #fff; margin: -1px; background: url(../images/canvasbg.jpg) no-repeat; background-size: 100% 100%; }
+.preCanvas { width: 16em; height: 14em; }
+.preUI { width: 10em; height: 14em; margin-left: 2em; }
+.conSelect { font-size: 1em; margin: 0.5em 0; }
+.conSelect select { width: 6em; }
+.conButton { width: 4em; text-align: center; line-height: 2em; border: 1px solid #fff; border-radius: 4px; margin: 0.5em; cursor: pointer; float: left; }
+
+.gameview { width : 26em; margin-left: -1px; padding-left: 2em; border-left: 1px solid #fff; }
+.gameCanvas { width: 56em; height: 31.5em; }

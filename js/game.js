@@ -100,10 +100,6 @@ var preview = {
 		preview.stage.removeChildren();
 		preview.name = name;
 		preview.spine = new PIXI.spine.Spine(player.spine[preview.name]);
-		preview.spine.skeleton.setToSetupPose();
-		preview.spine.update(0);
-		preview.spine.autoUpdate = false;
-		preview.spine.state.setAnimationByName(0, preview.spine.spineData.animations[0].name, true, 0);
         preview.spine.x = preview.selectX;
         preview.spine.y = preview.selectY;
         preview.spine.scale.x = preview.selectScale;
@@ -113,6 +109,11 @@ var preview = {
 			stringAnimations += "<option>" + preview.spine.spineData.animations[i].name + "</option>";
 		}
 		preview.selectAnimation.html(stringAnimations);
+		preview.spine.state.setAnimationByName(0, preview.spine.spineData.animations[0].name, true, 0);
+		preview.selectAnimation[0].selectedIndex = 1;
+		preview.spine.skeleton.setToSetupPose();
+		preview.spine.update(0);
+		preview.spine.autoUpdate = false;
 		preview.stage.addChild(preview.spine);
 	},
 
@@ -127,6 +128,7 @@ var preview = {
 
 	changeAnimation : function(n){
 		preview.spine.state.setAnimationByName(0, preview.spine.spineData.animations[n].name, true, 0);
+		preview.spine.update(0);
 	}
 
 };
@@ -163,6 +165,7 @@ var gameview = {
 		gameview.selectAnimation.change(function(){
 			var role = gameview.focusRole;
 			role.state.setAnimationByName(0, role.spineData.animations[this.selectedIndex - 1].name, true, 0);
+			role.update(0);
 		});
 
 		gameview.removeRole.click(function(){
@@ -224,9 +227,6 @@ var gameview = {
 	},
 	addRole : function(name){
 		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(player.spine[name]);
-		role.skeleton.setToSetupPose();
-		role.update(0);
-		role.autoUpdate = false;
 		gameview.selectposX.val(gameview.selectX);
 		gameview.selectposY.val(gameview.selectY);
 		gameview.focusRole = role;
@@ -235,11 +235,15 @@ var gameview = {
 			stringAnimations += "<option>" + role.spineData.animations[i].name + "</option>";
 		}
 		gameview.selectAnimation.html(stringAnimations);
+		preview.selectAnimation[0].selectedIndex = 1;
 		role.state.setAnimationByName(0, role.spineData.animations[0].name, true, 0);
         role.x = gameview.selectX;
         role.y = gameview.selectY;
         role.scale.x = gameview.selectScale;
 		role.scale.y = gameview.selectScale;
+		role.skeleton.setToSetupPose();
+		role.update(0);
+		role.autoUpdate = false;
 		var stringCharacter = "<option>" + name + "</option>";
 		gameview.selectCharacter.append(stringCharacter);
 		gameview.selectCharacter[0].selectedIndex = gameview.role.length;

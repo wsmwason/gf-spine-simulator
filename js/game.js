@@ -22,81 +22,202 @@ $(document).ready(function(){
 });
 
 var game = {
+	init : function(){
+		preview.init();
+		gameview.init();
+	}
+};
+
+var player = {
 	character : ["357", "56-1type", "56typeR", "59type", "63type", "64type", "64type_11", "79type", "88type", "92type", "95type", "97type", "98K", "9A91", "AAT52", "Aegis", "AK47", "Alchemist", "APS", "AR", "AR15", "ARX160", "ASVAL", "BM59", "BrenMK", "C96", "CZ805", "Destroyer", "Dinergate", "DP28", "Dragoon", "Drone", "EVO3", "Excutioner", "ExcutionerElite", "F2000", "FAMAS", "FG42", "FMG9", "FN49", "FNFAL", "FNFNC", "FNP9", "G11", "G11_9", "G3", "G36", "G36C", "G41", "G43", "Glock17", "Grizzly", "Guard", "HK416", "Hunter", "HunterElite", "IDW", "Intruder", "Jaeger", "Jaguar", "KP31", "L85A1", "LWMMG", "M1", "M14", "M16A1", "M1873", "M1891", "M1895", "M1903", "M1903_5", "M1911", "M1918", "M1919A4", "M1919A4_7", "M1928A1", "M1A1", "M21", "M249SAW", "M2HB", "M3", "M4 SOPMOD II", "m45", "m45_4", "M4A1", "M60", "M9", "M950A", "M99", "MAB38", "MAC10", "Manticore", "MG3", "MG34", "MG4", "MG42", "MG5", "MicroUZI", "Mk23", "Mk23_8", "MK48", "MLEMK1", "MLEMK1_10", "MP40", "MP446", "MP5", "MP5_3", "NEGEV", "Nemeum", "NTW20", "NZ75", "OTs12", "OTs14", "P08", "P38", "P7", "P99", "PK", "PM", "PM_1", "PP2000", "PPK", "PPS43", "PPsh41", "Prowler", "PSG1", "PTRD", "R357", "R59type", "R64type", "R64type_11", "R88type", "R92type", "R95type", "R9A91", "RAAT52", "RAR15", "RBrenMK", "RC96", "RFAMAS", "RFG42", "RFMG9", "RFNFNC", "RFNP9", "RG11", "RG11_9", "RG36", "RG36C", "RG43", "Rghost", "RGlock17", "RHK416", "RIDW", "Ripper", "RLWMMG", "RM1", "RM14", "RM16A1", "RM1891", "RM1903_5", "RM1919A4", "RM1A1", "RM249SAW", "RM2HB", "Rm45", "Rm45_4", "RM4A1", "RM60", "RM9", "RM99", "RMAB38", "RMAC10", "RMG3", "RMG34", "RMG4", "RMG42", "RMG5", "RMk23", "RMK48", "RMLEMK1", "RMP40", "RMP5", "RMP5_3", "RNEGEV", "RNTW20", "RNZ75", "ROTs12", "ROTs14", "RP38", "RP7", "RP99", "RPD", "RPK", "RPM_1", "RPP2000", "RPPK", "RPPS43", "RPPsh41", "RPSG1", "RPTRD", "RRPD", "RSIG510", "RSKS", "RSpectreM4", "RSPP1", "RSPS", "RStenMK2", "RSTG44", "RSuperSass", "RSV98", "RSVD", "RSVT38", "RTAR21", "RTT33", "RUMP45", "Rump9", "RVector", "RVector_2", "RVZ61", "RWA2000", "RWA2000_6", "RWelrod", "RZ62", "Scarecrow", "Scouts", "SIG510", "SKS", "SpectreM4", "SPP1", "SPS", "StenMK2", "STG44", "Striker", "SuperSass", "SV98", "SVD", "SVT38", "TAR21", "TT33", "Type100", "UMP45", "ump9", "Vector", "Vector_2", "Vespid", "VZ61", "WA2000", "WA2000_6", "Weaver", "Welrod", "Z62"],
 
-	init : function(){
-		game.container = $("#container");
-		game.selectCharacter = $("#selectCharacter");
-		game.selectAnimation = $("#selectAnimation");
-		game.selectScale = $("#selectScale");
-		game.selectX = $("#selectX");
-		game.selectY = $("#selectY");
+	spine : [],
 
-		var stringCharacter = "<option>请选择</option>";
-		for(var i =0; i < game.character.length; i++){
-			stringCharacter += "<option>" + game.character[i] + "</option>";
-		}
-		game.selectCharacter.html(stringCharacter);
-		game.selectCharacter.change(function(){
-			game.load(game.character[this.selectedIndex - 1]);
-		});
-		game.selectAnimation.change(function(){
-			game.change(this.selectedIndex - 1);
-		});
-
-		game.selectScale.val(100);
-		game.selectX.val(400);
-		game.selectY.val(600)
-
-		game.stage = new PIXI.Container;
-		game.renderer = new PIXI.CanvasRenderer(800, 800, {transparent : true});
-		game.animationFrame = window.requestAnimationFrame(game.animate, game.renderer);
-		game.container.html(game.renderer.view);
-	},
 	load : function(name){
-		if(!game.player.spine[name]){
-			game.path = "character/" + name + ".json";
-			PIXI.loader.add(name, game.path).load(function(loader, resources){
-				if(game.player.name){
-					game.stage.removeChild(game.player.spine[game.player.name]);
-				}
-				game.player.name = name;
-				game.player.spine[name] = new PIXI.spine.Spine(resources[name].spineData);
-				game.start();
+		if(!player.spine[name]){
+			var path = "character/" + name + ".json";
+			PIXI.loader.add(name, path).load(function(loader, resources){
+				player.spine[name] = resources[name].spineData;
+				preview.changeCanvas(name);
 			});
 		}else{
-			game.stage.removeChild(game.player.spine[game.player.name]);
-			game.player.name = name;
-			game.start();
+			preview.changeCanvas(name);
 		}
+	}
+
+};
+
+var preview = {
+	init : function(){
+		preview.canvas = $(".preCanvas");
+		preview.selectCharacter = $(".preSelectCharacter > select");
+		preview.selectAnimation = $(".preSelectAnimation > select");
+		preview.addRole = $(".preAddRole");
+
+		var stringCharacter = "<option>请选择</option>";
+		for(var i =0; i < player.character.length; i++){
+			stringCharacter += "<option>" + player.character[i] + "</option>";
+		}
+		preview.selectCharacter.html(stringCharacter);
+		preview.selectCharacter.change(function(){
+			preview.selectAnimation.html("");
+			player.load(player.character[this.selectedIndex - 1]);
+		});
+
+		preview.selectAnimation.change(function(){
+			preview.changeAnimation(this.selectedIndex - 1);
+		});
+
+		preview.addRole.click(function(){
+			gameview.addRole(preview.name);
+		});
+
+		preview.selectScale = 1;
+		preview.selectX = 128;
+		preview.selectY = 210;
+
+		preview.stage = new PIXI.Container;
+		preview.renderer = new PIXI.CanvasRenderer(preview.canvas.width(), preview.canvas.height(), {transparent : true});
+		preview.lastTime = new Date().getTime();
+		preview.nowTime = new Date().getTime();
+		preview.animationFrame = window.requestAnimationFrame(preview.animate);
+		preview.canvas.html(preview.renderer.view);
 	},
-	start : function(){
-		game.stage.addChild(game.player.spine[game.player.name]);
+
+	changeCanvas : function(name){
+		preview.stage.removeChildren();
+		preview.name = name;
+		preview.spine = new PIXI.spine.Spine(player.spine[preview.name]);
+		preview.spine.skeleton.setToSetupPose();
+		preview.spine.update(0);
+		preview.spine.autoUpdate = false;
+		preview.spine.state.setAnimationByName(0, preview.spine.spineData.animations[0].name, true, 0);
+        preview.spine.x = preview.selectX;
+        preview.spine.y = preview.selectY;
+        preview.spine.scale.x = preview.selectScale;
+		preview.spine.scale.y = preview.selectScale;
 		var stringAnimations = "<option>请选择</option>";
-		for(var i = 0;i < game.player.spine[game.player.name].spineData.animations.length;i++){
-			stringAnimations += "<option>" + game.player.spine[game.player.name].spineData.animations[i].name + "</option>";
+		for(var i = 0;i < preview.spine.spineData.animations.length;i++){
+			stringAnimations += "<option>" + preview.spine.spineData.animations[i].name + "</option>";
 		}
-		game.selectAnimation.html(stringAnimations);
-        game.player.spine[game.player.name].state.setAnimationByName(0, game.player.spine[game.player.name].spineData.animations[0].name, true, 0);
-        game.player.spine[game.player.name].x = game.selectX.val();
-        game.player.spine[game.player.name].y = game.selectY.val();
-        game.player.spine[game.player.name].scale.x = game.selectScale.val() / 100;
-		game.player.spine[game.player.name].scale.y = game.selectScale.val() / 100;
+		preview.selectAnimation.html(stringAnimations);
+		preview.stage.addChild(preview.spine);
+	},
+
+	animate : function(){
+		preview.lastTime = preview.nowTime;
+		preview.nowTime = new Date().getTime();
+		preview.animationFrame = window.requestAnimationFrame(preview.animate);
+		if(preview.spine)
+			preview.spine.update( (preview.nowTime - preview.lastTime) / 1000 );
+		preview.renderer.render(preview.stage);
+	},
+
+	changeAnimation : function(n){
+		preview.spine.state.setAnimationByName(0, preview.spine.spineData.animations[n].name, true, 0);
+	}
+
+};
+
+var gameview = {
+	role : [],
+	init : function(){
+		gameview.canvas = $('.gameCanvas');
+		gameview.selectCharacter = $(".gameSelectCharacter > select");
+		gameview.selectAnimation = $(".gameSelectAnimation > select");
+		gameview.selectposX = $(".gameSelectposX > input");
+		gameview.selectposY = $(".gameSelectposY > input");
+		gameview.turnRole = $(".gameTurnRole");
+		gameview.removeRole = $(".gameRemoveRole");
+
+		var stringCharacter = "<option>请选择</option>";
+		gameview.selectCharacter.html(stringCharacter);
+
+		gameview.selectCharacter.change(function(){
+			if(this.selectedIndex == 0) return ;
+			var role = gameview.role[this.selectedIndex - 1];
+			gameview.selectposX.val(role.x);
+			gameview.selectposY.val(role.y);
+			gameview.focusRole = role;
+			var stringAnimations = "<option>请选择</option>";
+			for(var i = 0;i < role.spineData.animations.length;i++){
+				stringAnimations += "<option>" + role.spineData.animations[i].name + "</option>";
+			}
+			gameview.selectAnimation.html(stringAnimations);
+		});
+
+		gameview.selectAnimation.change(function(){
+			var role = gameview.focusRole;
+			role.state.setAnimationByName(0, role.spineData.animations[this.selectedIndex - 1].name, true, 0);
+		});
+
+		gameview.removeRole.click(function(){
+			var n =gameview.selectCharacter[0].selectedIndex;
+			gameview.stage.removeChild(gameview.role[n - 1]);
+			gameview.selectCharacter[0].remove(n);
+			gameview.role.splice(n - 1, n);
+			n =gameview.selectCharacter[0].selectedIndex;
+			gameview.focusRole = null;
+			gameview.selectAnimation.html("");
+		});
+
+		gameview.turnRole.click(function(){
+			gameview.focusRole.scale.x *= -1;
+		})
+
+		gameview.selectX = gameview.canvas.width() / 2;
+		gameview.selectY = gameview.canvas.height() / 2;
+		gameview.selectScale = 1;
+
+		gameview.selectposX.attr("max", gameview.canvas.width());
+		gameview.selectposY.attr("max", gameview.canvas.height());
+		gameview.selectposX.val(gameview.selectX);
+		gameview.selectposY.val(gameview.selectY);
+
+		gameview.stage = new PIXI.Container;
+		gameview.renderer = new PIXI.CanvasRenderer(gameview.canvas.width(), gameview.canvas.height(), { transparent : true });
+		gameview.lastTime = new Date().getTime();
+		gameview.nowTime = new Date().getTime();
+		gameview.fpsText = new PIXI.Text("0", { fill : "#ffffff"});
+		gameview.fpsText.x = gameview.fpsText.y = 0;
+		gameview.stage.addChild(gameview.fpsText);
+		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
+		gameview.canvas.html(gameview.renderer.view);
 	},
 	animate : function(){
-		game.animationFrame = window.requestAnimationFrame(game.animate, game.renderer);
-		if(game.player.name){
-			game.player.spine[game.player.name].scale.x = game.selectScale.val() / 100;
-			game.player.spine[game.player.name].scale.y = game.selectScale.val() / 100;
-			game.player.spine[game.player.name].x = game.selectX.val();
-        	game.player.spine[game.player.name].y = game.selectY.val();
+		gameview.lastTime = gameview.nowTime;
+		gameview.nowTime = new Date().getTime();
+		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
+		gameview.fpsText.text = Math.floor(1000 / (gameview.nowTime - gameview.lastTime));
+		for(var i = 0; i < gameview.role.length; i++)
+			gameview.role[i].update( (gameview.nowTime - gameview.lastTime) / 1000);
+		if(gameview.focusRole){
+			gameview.focusRole.x = gameview.selectposX.val();
+			gameview.focusRole.y = gameview.selectposY.val();
 		}
-		game.renderer.render(game.stage);
+		gameview.renderer.render(gameview.stage);
 	},
-	change : function(n){
-		game.player.spine[game.player.name].state.setAnimationByName(0, game.player.spine[game.player.name].spineData.animations[n].name, true, 0);
-	},
-	player : {
-		spine : []
+	addRole : function(name){
+		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(player.spine[name]);
+		role.skeleton.setToSetupPose();
+		role.update(0);
+		role.autoUpdate = false;
+		gameview.selectposX.val(gameview.selectX);
+		gameview.selectposY.val(gameview.selectY);
+		gameview.focusRole = role;
+		var stringAnimations = "<option>请选择</option>";
+		for(var i = 0;i < role.spineData.animations.length;i++){
+			stringAnimations += "<option>" + role.spineData.animations[i].name + "</option>";
+		}
+		gameview.selectAnimation.html(stringAnimations);
+		role.state.setAnimationByName(0, role.spineData.animations[0].name, true, 0);
+        role.x = gameview.selectX;
+        role.y = gameview.selectY;
+        role.scale.x = gameview.selectScale;
+		role.scale.y = gameview.selectScale;
+		var stringCharacter = "<option>" + name + "</option>";
+		gameview.selectCharacter.append(stringCharacter);
+		gameview.selectCharacter[0].selectedIndex = gameview.role.length;
+		gameview.stage.addChild(role);
 	}
 }

@@ -71,7 +71,8 @@ var preview = {
 		});
 
 		preview.addRole.click(function(){
-			gameview.addRole(preview.name);
+			if(preview.name)
+				gameview.addRole(preview.name);
 		});
 
 		preview.stopRole.click(function(){
@@ -89,7 +90,7 @@ var preview = {
 		preview.selectY = 210;
 
 		preview.stage = new PIXI.Container;
-		preview.renderer = new PIXI.CanvasRenderer(preview.canvas.width(), preview.canvas.height(), {transparent : true});
+		preview.renderer = PIXI.autoDetectRenderer(preview.canvas.width(), preview.canvas.height(), {transparent : true});
 		preview.lastTime = new Date().getTime();
 		preview.nowTime = new Date().getTime();
 		preview.animationFrame = window.requestAnimationFrame(preview.animate);
@@ -170,6 +171,7 @@ var gameview = {
 
 		gameview.removeRole.click(function(){
 			var n =gameview.selectCharacter[0].selectedIndex;
+			if(n == 0) return ;
 			gameview.stage.removeChild(gameview.role[n - 1]);
 			gameview.selectCharacter[0].remove(n);
 			gameview.role.splice(n - 1, n);
@@ -202,19 +204,23 @@ var gameview = {
 		gameview.selectposY.val(gameview.selectY);
 
 		gameview.stage = new PIXI.Container;
-		gameview.renderer = new PIXI.CanvasRenderer(gameview.canvas.width(), gameview.canvas.height(), { transparent : true });
+		gameview.renderer = PIXI.autoDetectRenderer(gameview.canvas.width(), gameview.canvas.height(), { transparent : true });
 		gameview.lastTime = new Date().getTime();
 		gameview.nowTime = new Date().getTime();
 		gameview.fpsText = new PIXI.Text("0", { fill : "#ffffff"});
 		gameview.fpsText.x = gameview.fpsText.y = 0;
 		gameview.stage.addChild(gameview.fpsText);
+		gameview.last = new Date().getTime();
+		gameview.now = new Date().getTime();
+		gameview.text = new PIXI.Text("0", { fill : "#ffffff" });
+		gameview.text.x = 100;
+		gameview.stage.addChild(gameview.text);
 		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
 		gameview.canvas.html(gameview.renderer.view);
 	},
 	animate : function(){
 		gameview.lastTime = gameview.nowTime;
 		gameview.nowTime = new Date().getTime();
-		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
 		gameview.fpsText.text = Math.floor(1000 / (gameview.nowTime - gameview.lastTime));
 		if(gameview.isUpdate)
 			for(var i = 0; i < gameview.role.length; i++)
@@ -223,7 +229,11 @@ var gameview = {
 			gameview.focusRole.x = gameview.selectposX.val();
 			gameview.focusRole.y = gameview.selectposY.val();
 		}
+		gameview.last = new Date().getTime();
 		gameview.renderer.render(gameview.stage);
+		gameview.now = new Date().getTime();
+		gameview.text.text = gameview.now - gameview.last;
+		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
 	},
 	addRole : function(name){
 		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(player.spine[name]);

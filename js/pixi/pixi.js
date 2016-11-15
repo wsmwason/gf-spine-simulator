@@ -18991,6 +18991,7 @@ var utils = module.exports = {
 
         if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1)
         {
+            /*
             var args = [
                 '\n %c %c %c Pixi.js ' + CONST.VERSION + ' - ✰ ' + type + ' ✰  %c ' + ' %c ' + ' http://www.pixijs.com/  %c %c ♥%c♥%c♥ \n\n',
                 'background: #ff66a5; padding:5px 0;',
@@ -19005,6 +19006,7 @@ var utils = module.exports = {
             ];
 
             window.console.log.apply(console, args); //jshint ignore:line
+            */
         }
         else if (window.console)
         {

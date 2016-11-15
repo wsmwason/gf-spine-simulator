@@ -5,27 +5,27 @@
 	<title>少女前线Q版枪娘模拟器</title>
 	<style type="text/css">
 		* { margin: 0; padding: 0; }
-		html { font-size: 16px; }
-		body { font-size: 1em; color: #fff; background: url(images/bg.jpg) center no-repeat; background-size: cover; }
+		html { width: 100%; height: 100%; font-size: 16px; }
+		body { width: 100%; height: 100%; font-size: 1em; color: #fff; background: url(images/bg.jpg) center no-repeat; background-size: cover; }
 
 		.left { float: left; }
 		.clear { clear: both; }
 
-		.container { width: 56em; margin: 0 auto; padding: 4em 0; position: relative;}
+		.container { width: 56em; margin: 0 auto; padding: 2em 0; position: relative;}
 
 		.header {  }
 		.htitle { font-size: 2em; line-height: 1.5em; text-align: center; }
 
 		.view { float: left; }
-		.preview { width: 28em; }
+		.preview { width: 30em; }
 		.Canvas { border: 1px solid #fff; margin: -1px; background: url(images/canvasbg.jpg) no-repeat; background-size: 100% 100%; }
 		.preCanvas { width: 16em; height: 14em; }
-		.preUI { width: 10em; height: 14em; margin-left: 2em; }
-		.conSelect { font-size: 1em; margin: 0.5em 0; }
+		.preUI { width: 12em; height: 14em; margin-left: 2em; }
+		.conSelect { width: 12em; font-size: 1em; margin: 0.5em 0; }
 		.conSelect select { width: 6em; }
-		.conButton { width: 4em; text-align: center; line-height: 2em; border: 1px solid #fff; border-radius: 4px; margin: 0.5em; cursor: pointer; float: left; }
+		.conButton { width: 4em; text-align: center; line-height: 2em; border: 1px solid #fff; border-radius: 4px; margin: 0.5em; cursor: pointer; }
 
-		.gameview { width : 26em; margin-left: -1px; padding-left: 2em; border-left: 1px solid #fff; }
+		.gameview { width : 24em; margin-left: -1px; padding-left: 2em; border-left: 1px solid #fff; }
 		.gameCanvas { width: 56em; height: 31.5em; }
 	</style>
 </head>
@@ -52,18 +52,24 @@
 		</div>
 		<div class="gameview view">
 			<div class="gameUI UI">
-				<div class="gameSelectBackground conSelect">
+				<div class="gameSelectBackground left conSelect">
 					<span>背景：</span>
 					<select></select>
 				</div>
-				<div class="gameSelectCharacter conSelect">
+				<div class="gameShowFPS left conSelect">
+					<span>帧数：</span>
+					<input type="checkbox" checked="checked" />
+				</div>
+				<div class="clear"></div>
+				<div class="gameSelectCharacter left conSelect">
 					<span>人物：</span>
 					<select></select>
 				</div>
-				<div class="gameSelectAnimation conSelect">
+				<div class="gameSelectAnimation left conSelect">
 					<span>动作：</span>
 					<select></select>
 				</div>
+				<div class="clear"></div>
 				<div class="gameSelectposX conRange">
 					<span>X：</span>
 					<input type="range" min="0" max="800" />
@@ -72,9 +78,10 @@
 					<span>Y：</span>
 					<input type="range" min="0" max="800" />
 				</div>
-				<div class="gameTurnRole conButton">翻转</div>
-				<div class="gameStopRole conButton">停止</div>
-				<div class="gameRemoveRole conButton">移除</div>
+				<div class="gameTurnRole conButton left">翻转</div>
+				<div class="gameStopRole conButton left">停止</div>
+				<div class="gameRemoveRole conButton left">移除</div>
+				<div class="clear"></div>
 			</div>
 			<div class="clear"></div>
 		</div>

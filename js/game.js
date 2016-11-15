@@ -144,6 +144,7 @@ var gameview = {
 	init : function(){
 		gameview.canvas = $('.gameCanvas');
 		gameview.selectBackground = $(".gameSelectBackground > select");
+		gameview.showFPS = $(".gameShowFPS > input");
 		gameview.selectCharacter = $(".gameSelectCharacter > select");
 		gameview.selectAnimation = $(".gameSelectAnimation > select");
 		gameview.selectposX = $(".gameSelectposX > input");
@@ -152,6 +153,7 @@ var gameview = {
 		gameview.stopRole = $(".gameStopRole");
 		gameview.removeRole = $(".gameRemoveRole");
 		gameview.isUpdate = true;
+		gameview.isShowFPS = true;
 
 		var stringBackground = "<option>空</option>";
 		for(var i = 0;i < player.background.length; i++)
@@ -160,6 +162,10 @@ var gameview = {
 
 		gameview.selectBackground.change(function(){
 			gameview.changeBackground(this.selectedIndex);
+		});
+
+		gameview.showFPS.change(function(){
+			gameview.isShowFPS = this.checked;
 		});
 
 		var stringCharacter = "<option>请选择</option>";
@@ -227,11 +233,6 @@ var gameview = {
 		gameview.fpsText = new PIXI.Text("0", { fill : "#ffffff"});
 		gameview.fpsText.x = gameview.fpsText.y = 0;
 		gameview.stage.addChild(gameview.fpsText);
-		gameview.last = new Date().getTime();
-		gameview.now = new Date().getTime();
-		gameview.text = new PIXI.Text("0", { fill : "#ffffff" });
-		gameview.text.x = 100;
-		gameview.stage.addChild(gameview.text);
 		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
 		gameview.canvas.html(gameview.renderer.view);
 	},
@@ -239,7 +240,10 @@ var gameview = {
 		gameview.lastTime = gameview.nowTime;
 		gameview.nowTime = new Date().getTime();
 		gameview.animationFrame = window.requestAnimationFrame(gameview.animate);
-		gameview.fpsText.text = Math.floor(1000 / (gameview.nowTime - gameview.lastTime));
+		if(gameview.isShowFPS)
+			gameview.fpsText.text = Math.floor(1000 / (gameview.nowTime - gameview.lastTime));
+		else
+			gameview.fpsText.text = "";
 		if(gameview.isUpdate)
 			for(var i = 0; i < gameview.role.length; i++)
 				gameview.role[i].update( (gameview.nowTime - gameview.lastTime) / 1000);
@@ -247,10 +251,7 @@ var gameview = {
 			gameview.focusRole.x = gameview.selectposX.val();
 			gameview.focusRole.y = gameview.selectposY.val();
 		}
-		gameview.last = new Date().getTime();
 		gameview.renderer.render(gameview.stage);
-		gameview.now = new Date().getTime();
-		gameview.text.text = gameview.now - gameview.last;
 	},
 	addRole : function(name){
 		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(player.spine[name]);

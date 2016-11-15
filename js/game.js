@@ -149,6 +149,7 @@ var gameview = {
 		gameview.selectAnimation = $(".gameSelectAnimation > select");
 		gameview.selectposX = $(".gameSelectposX > input");
 		gameview.selectposY = $(".gameSelectposY > input");
+		gameview.selectscale = $(".gameSelectscale > input");
 		gameview.turnRole = $(".gameTurnRole");
 		gameview.stopRole = $(".gameStopRole");
 		gameview.removeRole = $(".gameRemoveRole");
@@ -176,6 +177,7 @@ var gameview = {
 			var role = gameview.role[this.selectedIndex - 1];
 			gameview.selectposX.val(role.x);
 			gameview.selectposY.val(role.y);
+			gameview.selectscale.val(role.scale.x * 1000);
 			gameview.focusRole = role;
 			var stringAnimations = "<option>请选择</option>";
 			for(var i = 0;i < role.spineData.animations.length;i++){
@@ -223,6 +225,7 @@ var gameview = {
 		gameview.selectposY.attr("max", gameview.canvas.height());
 		gameview.selectposX.val(gameview.selectX);
 		gameview.selectposY.val(gameview.selectY);
+		gameview.selectscale.val(gameview.selectScale * 1000);
 
 		gameview.stage = new PIXI.Container;
 		gameview.renderer = PIXI.autoDetectRenderer(gameview.canvas.width(), gameview.canvas.height(), { transparent : true });
@@ -250,6 +253,11 @@ var gameview = {
 		if(gameview.focusRole){
 			gameview.focusRole.x = gameview.selectposX.val();
 			gameview.focusRole.y = gameview.selectposY.val();
+			if(gameview.focusRole.scale.x > 0)
+				gameview.focusRole.scale.x = gameview.selectscale.val() / 1000;
+			else
+				gameview.focusRole.scale.x = -gameview.selectscale.val() / 1000;
+			gameview.focusRole.scale.y = gameview.selectscale.val() / 1000;
 		}
 		gameview.renderer.render(gameview.stage);
 	},
@@ -257,6 +265,7 @@ var gameview = {
 		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(player.spine[name]);
 		gameview.selectposX.val(gameview.selectX);
 		gameview.selectposY.val(gameview.selectY);
+		gameview.selectscale.val(gameview.selectScale * 1000);
 		gameview.focusRole = role;
 		var stringAnimations = "<option>请选择</option>";
 		for(var i = 0;i < role.spineData.animations.length;i++){

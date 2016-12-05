@@ -10,7 +10,7 @@
 { "name" : "armL1", "parent" : "body", "length" : 16.1582, "x" : 23.67, "y" : -7.54, "rotation" : -150.21, "color" : "9b9b9bff"  },
 { "name" : "armR1", "parent" : "body", "length" : 20.6793, "x" : 23.61, "y" : 8.43, "rotation" : 158.38, "color" : "9b9b9bff"  },
 { "name" : "bone48", "parent" : "body", "length" : 11.2978, "x" : 31.40, "y" : -2.85, "rotation" : 178.20, "color" : "9b9b9bff"  },
-{ "name" : "brest", "parent" : "body", "x" : 20.29, "y" : -4.46, "color" : "9b9b9bff"  },
+{ "name" : "brest", "parent" : "body", "scaleX" : 0.5, "scaleY" : 0.5, "x" : 20.29, "y" : -4.46, "color" : "9b9b9bff"  },
 { "name" : "coat", "parent" : "body", "length" : 43.8009, "x" : 21.93, "y" : -1.81, "rotation" : 177.75, "color" : "9b9b9bff"  },
 { "name" : "earL", "parent" : "body", "x" : 28.98, "y" : -11.81, "color" : "9b9b9bff"  },
 { "name" : "earR", "parent" : "body", "x" : 29.26, "y" : 5.81, "color" : "9b9b9bff"  },

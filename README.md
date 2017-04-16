@@ -1,7 +1,6 @@
 # gfSpinePiXi 少女前线Q版模拟器
 
 [![view]](https://cullus.github.io/gfSpinePiXi/)
-[view]:https://github.com/cullus/gfSpinePiXi/raw/master/images/bgg.jpg
 
 [网页模拟器](https://cullus.github.io/gfSpinePiXi/)
 
@@ -13,3 +12,7 @@
 ---
 
 不定时更新，也许会`弃坑`<br/>
+
+---
+
+[view]:https://github.com/cullus/gfSpinePiXi/raw/master/images/bgg.jpg

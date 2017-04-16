@@ -1,8 +1,9 @@
 # gfSpinePiXi 少女前线Q版模拟器
 
-![](https://github.com/cullus/gfSpinePiXi/raw/master/images/bgg.jpg)
+[![view]](https://cullus.github.io/gfSpinePiXi/)
+[view]:https://github.com/cullus/gfSpinePiXi/raw/master/images/bgg.jpg
 
-		[模拟器网页](https://cullus.github.io/gfSpinePiXi/)
+[网页模拟器](https://cullus.github.io/gfSpinePiXi/)
 
 ---
 

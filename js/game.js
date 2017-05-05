@@ -25,6 +25,8 @@ $(document).ready(function(){
 
 var game = {
 	init : function(){
+		game.girls = new Girls("character/");
+		game.background = ["Airport", "Bridge", "Forest", "IceLake", "Sonw", "Street", "zhiwu"];
 		preview.init();
 		gameview.init();
 	}
@@ -34,28 +36,44 @@ var preview = {
 	init : function(){
 		preview.canvas = $(".preCanvas");
 		preview.selectCharacter = $(".preSelectCharacter > select");
+		preview.selectSkin = $(".preSelectSkin > select");
 		preview.selectAnimation = $(".preSelectAnimation > select");
 		preview.stopRole = $(".preStopRole");
 		preview.addRole = $(".preAddRole");
 		preview.isUpdate = true;
 
 		var stringCharacter = "<option>请选择</option>";
-		for(var i =0; i < player.character.length; i++){
-			stringCharacter += "<option>" + player.character[i] + "</option>";
+		for(var name in girlsData){
+			stringCharacter += "<option value=\"" + name + "\">" + name + "</option>";
 		}
 		preview.selectCharacter.html(stringCharacter);
 		preview.selectCharacter.change(function(){
-			preview.selectAnimation.html("");
-			player.load(player.character[this.selectedIndex - 1]);
+			if(this.selectedIndex == 0)
+				return;
+			var name = $(this).val();
+			var strSkinsOption = "<option>请选择</option>";
+			if(!girlsData[name])
+				return;
+			for(var skin in girlsData[name]){
+				strSkinsOption += "<option value=\"" + skin + "\">" + skin + "</option>";
+			}
+			preview.selectSkin.html(strSkinsOption);
+		});
+
+		preview.selectSkin.change(function(){
+			if(this.selectedIndex == 0)
+				return;
+			var skin = $(this).val();
+			game.girls.load(preview.selectCharacter.val(), preview.selectSkin.val(), preview);
 		});
 
 		preview.selectAnimation.change(function(){
-			preview.changeAnimation(this.selectedIndex - 1);
+			preview.changeAnimation(this.selectedIndex);
 		});
 
 		preview.addRole.click(function(){
-			if(preview.name)
-				gameview.addRole(preview.name);
+			if(preview.skeletonData)
+				gameview.addRole(preview.skeletonData);
 		});
 
 		preview.stopRole.click(function(){
@@ -80,21 +98,22 @@ var preview = {
 		preview.canvas.html(preview.renderer.view);
 	},
 
-	changeCanvas : function(name){
+	changeCanvas : function(skeletonData){
 		preview.stage.removeChildren();
-		preview.name = name;
-		preview.spine = new PIXI.spine.Spine(player.spine[preview.name]);
+		preview.name = skeletonData.name;
+		preview.skeletonData = skeletonData;
+		preview.spine = new PIXI.spine.Spine(skeletonData);
         preview.spine.x = preview.selectX;
         preview.spine.y = preview.selectY;
         preview.spine.scale.x = preview.selectScale;
 		preview.spine.scale.y = preview.selectScale;
-		var stringAnimations = "<option>请选择</option>";
-		for(var i = 0;i < preview.spine.spineData.animations.length;i++){
-			stringAnimations += "<option>" + preview.spine.spineData.animations[i].name + "</option>";
+		var animations = preview.spine.spineData.animations;
+		var stringAnimations = "";
+		for(var i = 0; i < animations.length; i++){
+			stringAnimations += "<option value=\"" + animations[i].name + "\">" + animations[i].name + "</option>";
 		}
 		preview.selectAnimation.html(stringAnimations);
-		preview.spine.state.setAnimationByName(0, preview.spine.spineData.animations[0].name, true, 0);
-		preview.selectAnimation[0].selectedIndex = 1;
+		preview.changeAnimation(0);
 		preview.spine.skeleton.setToSetupPose();
 		preview.spine.update(0);
 		preview.spine.autoUpdate = false;
@@ -110,8 +129,12 @@ var preview = {
 		preview.renderer.render(preview.stage);
 	},
 
-	changeAnimation : function(n){
-		preview.spine.state.setAnimationByName(0, preview.spine.spineData.animations[n].name, true, 0);
+	changeAnimation : function(num){
+		var name = preview.spine.spineData.animations[num].name;
+		var isload = true;
+		if(name == "die" || name == "reload" || name == "victory")
+			isload = false;
+		preview.spine.state.setAnimationByName(0, name, isload, 0);
 		preview.spine.update(0);
 	}
 
@@ -136,8 +159,8 @@ var gameview = {
 		gameview.isShowFPS = true;
 
 		var stringBackground = "<option>空</option>";
-		for(var i = 0;i < player.background.length; i++)
-			stringBackground += "<option>" + player.background[i] + "</option>";
+		for(var i = 0;i < game.background.length; i++)
+			stringBackground += "<option>" + game.background[i] + "</option>";
 		gameview.selectBackground.html(stringBackground);
 
 		gameview.selectBackground.change(function(){
@@ -166,9 +189,7 @@ var gameview = {
 		});
 
 		gameview.selectAnimation.change(function(){
-			var role = gameview.focusRole;
-			role.state.setAnimationByName(0, role.spineData.animations[this.selectedIndex - 1].name, true, 0);
-			role.update(0);
+			gameview.changeAnimation(this.selectedIndex);
 		});
 
 		gameview.removeRole.click(function(){
@@ -240,19 +261,29 @@ var gameview = {
 		}
 		gameview.renderer.render(gameview.stage);
 	},
-	addRole : function(name){
-		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(player.spine[name]);
+
+	changeAnimation : function(num){
+		var name = gameview.focusRole.spineData.animations[num].name;
+		var isload = true;
+		if(name == "die" || name == "reload" || name == "victory")
+			isload = false;
+		gameview.focusRole.state.setAnimationByName(0, name, isload, 0);
+		gameview.focusRole.update(0);
+	},
+
+	addRole : function(skeletonData){
+		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(skeletonData);
+		var name = skeletonData.name;
 		gameview.selectposX.val(gameview.selectX);
 		gameview.selectposY.val(gameview.selectY);
 		gameview.selectscale.val(gameview.selectScale * 1000);
 		gameview.focusRole = role;
-		var stringAnimations = "<option>请选择</option>";
+		var stringAnimations = "";
 		for(var i = 0;i < role.spineData.animations.length;i++){
 			stringAnimations += "<option>" + role.spineData.animations[i].name + "</option>";
 		}
 		gameview.selectAnimation.html(stringAnimations);
-		preview.selectAnimation[0].selectedIndex = 1;
-		role.state.setAnimationByName(0, role.spineData.animations[0].name, true, 0);
+		gameview.changeAnimation(0);
         role.x = gameview.selectX;
         role.y = gameview.selectY;
         role.scale.x = gameview.selectScale;
@@ -276,8 +307,8 @@ var gameview = {
 			gameview.background.scale.y = gameview.renderer.height / gameview.bgImage[n-1].height;
 		}
 		else{
-			var name = "bg" + player.background[n-1];
-			var path = "background/" + player.background[n-1] + ".jpg"
+			var name = "bg" + game.background[n-1];
+			var path = "background/" + game.background[n-1] + ".jpg"
 			PIXI.loader.add(name, path).load(function(loader, resources){
 				gameview.bgImage[n - 1] = resources[name].texture;
 				gameview.background.texture = gameview.bgImage[n - 1];

@@ -1,0 +1,118 @@
+
+dog5.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+2Bleg1
+  rotate: false
+  xy: 221, 80
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+2Bleg2
+  rotate: true
+  xy: 121, 13
+  size: 23, 30
+  orig: 23, 30
+  offset: 0, 0
+  index: -1
+2Fleg
+  rotate: false
+  xy: 159, 78
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+2Fleg2
+  rotate: false
+  xy: 121, 38
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+BRleg1
+  rotate: false
+  xy: 213, 137
+  size: 41, 29
+  orig: 41, 29
+  offset: 0, 0
+  index: -1
+BRleg2
+  rotate: true
+  xy: 213, 107
+  size: 28, 41
+  orig: 28, 41
+  offset: 0, 0
+  index: -1
+FRleg1
+  rotate: false
+  xy: 189, 76
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+FRleg2
+  rotate: false
+  xy: 149, 38
+  size: 23, 38
+  orig: 23, 38
+  offset: 0, 0
+  index: -1
+Lear
+  rotate: false
+  xy: 72, 17
+  size: 47, 55
+  orig: 47, 55
+  offset: 0, 0
+  index: -1
+Rear
+  rotate: false
+  xy: 72, 74
+  size: 47, 73
+  orig: 47, 73
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 2, 22
+  size: 125, 68
+  orig: 125, 68
+  offset: 0, 0
+  index: -1
+eye
+  rotate: true
+  xy: 189, 106
+  size: 60, 22
+  orig: 60, 22
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 149
+  size: 120, 105
+  orig: 120, 105
+  offset: 0, 0
+  index: -1
+mouth1
+  rotate: false
+  xy: 121, 78
+  size: 36, 29
+  orig: 36, 29
+  offset: 0, 0
+  index: -1
+ring
+  rotate: false
+  xy: 124, 168
+  size: 107, 86
+  orig: 107, 86
+  offset: 0, 0
+  index: -1
+stick
+  rotate: false
+  xy: 124, 109
+  size: 63, 57
+  orig: 63, 57
+  offset: 0, 0
+  index: -1

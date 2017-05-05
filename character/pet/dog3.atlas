@@ -1,0 +1,118 @@
+
+dog3.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+2Bleg1
+  rotate: false
+  xy: 120, 222
+  size: 31, 28
+  orig: 31, 28
+  offset: 0, 0
+  index: -1
+2Bleg2
+  rotate: true
+  xy: 218, 226
+  size: 24, 31
+  orig: 24, 31
+  offset: 0, 0
+  index: -1
+2Fleg1
+  rotate: true
+  xy: 153, 224
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+2Fleg2
+  rotate: true
+  xy: 120, 200
+  size: 20, 28
+  orig: 20, 28
+  offset: 0, 0
+  index: -1
+BRleg1
+  rotate: false
+  xy: 2, 2
+  size: 28, 30
+  orig: 28, 30
+  offset: 0, 0
+  index: -1
+BRleg2
+  rotate: false
+  xy: 93, 169
+  size: 24, 31
+  orig: 24, 31
+  offset: 0, 0
+  index: -1
+FRleg1
+  rotate: true
+  xy: 186, 223
+  size: 27, 30
+  orig: 27, 30
+  offset: 0, 0
+  index: -1
+FRleg2
+  rotate: false
+  xy: 64, 92
+  size: 22, 31
+  orig: 22, 31
+  offset: 0, 0
+  index: -1
+Lear
+  rotate: false
+  xy: 64, 125
+  size: 21, 45
+  orig: 21, 45
+  offset: 0, 0
+  index: -1
+Rear
+  rotate: false
+  xy: 93, 202
+  size: 25, 48
+  orig: 25, 48
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 2, 70
+  size: 100, 60
+  orig: 100, 60
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 172
+  size: 89, 78
+  orig: 89, 78
+  offset: 0, 0
+  index: -1
+item
+  rotate: false
+  xy: 2, 34
+  size: 38, 34
+  orig: 38, 34
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: false
+  xy: 119, 178
+  size: 27, 20
+  orig: 27, 20
+  offset: 0, 0
+  index: -1
+mouth1
+  rotate: true
+  xy: 42, 37
+  size: 31, 19
+  orig: 31, 19
+  offset: 0, 0
+  index: -1
+stick
+  rotate: false
+  xy: 64, 69
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1

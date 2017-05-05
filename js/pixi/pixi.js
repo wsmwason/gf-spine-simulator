@@ -28574,7 +28574,7 @@ Resource.prototype._xhrOnLoad = function () {
         status = xhr.status !== undefined ? xhr.status : 200; //XDR has no `.status`, assume 200.
 
     // status can be 0 when using the file:// protocol, also check if a response was found
-    if (status === 200 || status === 204 || (status === 0 && xhr.responseText.length > 0)) {
+    if (status === 200 || status === 204 || (status === 0 && ( this.xhrType == "arraybuffer" || xhr.responseText.length > 0))) {
         // if text, just return it
         if (this.xhrType === Resource.XHR_RESPONSE_TYPE.TEXT) {
             this.data = xhr.responseText;

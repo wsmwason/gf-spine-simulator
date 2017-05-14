@@ -73,7 +73,7 @@ var preview = {
 
 		preview.addRole.click(function(){
 			if(preview.skeletonData)
-				gameview.addRole(preview.skeletonData);
+				gameview.addRole(preview.skeletonData, preview.selectAnimation.val());
 		});
 
 		preview.stopRole.click(function(){
@@ -181,9 +181,13 @@ var gameview = {
 			gameview.selectposY.val(role.y);
 			gameview.selectscale.val(role.scale.x * 1000);
 			gameview.focusRole = role;
-			var stringAnimations = "<option>请选择</option>";
+			var stringAnimations = "";
 			for(var i = 0;i < role.spineData.animations.length;i++){
-				stringAnimations += "<option>" + role.spineData.animations[i].name + "</option>";
+				var defaultAnimation = "";
+				if(role.animation==role.spineData.animations[i].name){
+					defaultAnimation = " selected";
+				}
+				stringAnimations += "<option" + defaultAnimation + ">" + role.spineData.animations[i].name + "</option>";
 			}
 			gameview.selectAnimation.html(stringAnimations);
 		});
@@ -271,7 +275,7 @@ var gameview = {
 		gameview.focusRole.update(0);
 	},
 
-	addRole : function(skeletonData){
+	addRole : function(skeletonData, selectedAnimation){
 		var role = gameview.role[gameview.role.length] = new PIXI.spine.Spine(skeletonData);
 		var name = skeletonData.name;
 		gameview.selectposX.val(gameview.selectX);
@@ -279,14 +283,21 @@ var gameview = {
 		gameview.selectscale.val(gameview.selectScale * 1000);
 		gameview.focusRole = role;
 		var stringAnimations = "";
+		var defaultAnimationId = 0;
 		for(var i = 0;i < role.spineData.animations.length;i++){
-			stringAnimations += "<option>" + role.spineData.animations[i].name + "</option>";
+			var defaultAnimation = "";
+			if(selectedAnimation==role.spineData.animations[i].name){
+			  defaultAnimation = " selected";
+			  defaultAnimationId = i;
+			}
+			stringAnimations += "<option" + defaultAnimation + ">" + role.spineData.animations[i].name + "</option>";
 		}
 		gameview.selectAnimation.html(stringAnimations);
-		gameview.changeAnimation(0);
+		gameview.changeAnimation(defaultAnimationId);
         role.x = gameview.selectX;
         role.y = gameview.selectY;
         role.scale.x = gameview.selectScale;
+        role.animation = selectedAnimation;
 		role.scale.y = gameview.selectScale;
 		role.skeleton.setToSetupPose();
 		role.update(0);

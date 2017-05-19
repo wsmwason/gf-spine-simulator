@@ -118,6 +118,7 @@ var preview = {
 		preview.spine.update(0);
 		preview.spine.autoUpdate = false;
 		preview.stage.addChild(preview.spine);
+		GirlsTurn.nextAnimate();
 	},
 
 	animate : function(){
@@ -320,7 +321,7 @@ var gameview = {
 }
 
 var GirlsTurn = {
-	stop : false,
+	stop : true,
 	sum : 0,
 	girlsNum : 0,
 	nextGirlNum : 0,
@@ -329,6 +330,7 @@ var GirlsTurn = {
 	animateNum : 0,
 	nextAnimateNum : 0,
 	init : function(){
+		GirlsTurn.stop = false;
 		GirlsTurn.girlsNum = preview.selectCharacter.children("option").length;
 		GirlsTurn.nextGirlNum = 1;
 		GirlsTurn.nextGirl();
@@ -355,7 +357,6 @@ var GirlsTurn = {
 		preview.selectSkin[0].selectedIndex = GirlsTurn.nextSkinNum++;
 		preview.selectSkin.change();
 		GirlsTurn.nextAnimateNum = 0;
-		setTimeout("GirlsTurn.nextAnimate()", 200);
 	},
 	nextAnimate : function(){
 		if(GirlsTurn.stop)

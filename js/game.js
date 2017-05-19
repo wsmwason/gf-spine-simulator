@@ -318,3 +318,53 @@ var gameview = {
 		}
 	}
 }
+
+var GirlsTurn = {
+	sum : 0,
+	girlsNum : 0,
+	nextGirlNum : 0,
+	skinsNum : 0,
+	nextSkinNum : 0,
+	animateNum : 0,
+	nextAnimateNum : 0,
+	init : function(){
+		GirlsTurn.girlsNum = preview.selectCharacter.children("option").length;
+		GirlsTurn.nextGirlNum = 1;
+		GirlsTurn.nextGirl();
+	},
+	nextGirl : function(){
+		if(GirlsTurn.nextGirlNum >= GirlsTurn.girlsNum){
+			return;
+		}
+		preview.selectCharacter[0].selectedIndex = GirlsTurn.nextGirlNum++;
+		preview.selectCharacter.change();
+		GirlsTurn.skinsNum = preview.selectSkin.children("option").length;
+		GirlsTurn.nextSkinNum = 1;
+		GirlsTurn.nextSkin();
+	},
+	nextSkin : function(){
+		if(GirlsTurn.nextSkinNum >= GirlsTurn.skinsNum){
+			GirlsTurn.nextGirl();
+			return;
+		}
+		preview.selectSkin[0].selectedIndex = GirlsTurn.nextSkinNum++;
+		preview.selectSkin.change();
+		GirlsTurn.nextAnimateNum = 0;
+		setTimeout("GirlsTurn.nextAnimate()", 200);
+	},
+	nextAnimate : function(){
+		GirlsTurn.animateNum = preview.selectAnimation.children("option").length;
+		preview.selectAnimation[0].selectedIndex = GirlsTurn.nextAnimateNum++;
+		var girlname = preview.selectCharacter.children("option")[preview.selectCharacter[0].selectedIndex].value;
+		var skinname = preview.selectSkin.children("option")[preview.selectSkin[0].selectedIndex].value;
+		var animatename = preview.selectAnimation.children("option")[preview.selectAnimation[0].selectedIndex].value;
+		console.log(girlname + "-" + skinname + "-" + animatename + "-" + GirlsTurn.sum++);
+		preview.selectAnimation.change();
+		if(GirlsTurn.nextAnimateNum < GirlsTurn.animateNum){
+			setTimeout("GirlsTurn.nextAnimate()", 500);
+		}else{
+			setTimeout("GirlsTurn.nextSkin()", 500);
+		}
+	}
+}
+

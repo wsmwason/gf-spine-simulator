@@ -5,114 +5,128 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 2Bleg1
-  rotate: false
-  xy: 120, 222
-  size: 31, 28
-  orig: 31, 28
+  rotate: true
+  xy: 169, 227
+  size: 27, 40
+  orig: 27, 40
   offset: 0, 0
   index: -1
 2Bleg2
   rotate: true
-  xy: 218, 226
-  size: 24, 31
-  orig: 24, 31
+  xy: 42, 18
+  size: 19, 36
+  orig: 19, 36
   offset: 0, 0
   index: -1
 2Fleg1
   rotate: true
-  xy: 153, 224
-  size: 26, 31
-  orig: 26, 31
+  xy: 33, 39
+  size: 22, 39
+  orig: 22, 39
   offset: 0, 0
   index: -1
 2Fleg2
-  rotate: true
-  xy: 120, 200
-  size: 20, 28
-  orig: 20, 28
+  rotate: false
+  xy: 85, 138
+  size: 23, 40
+  orig: 23, 40
   offset: 0, 0
   index: -1
 BRleg1
   rotate: false
-  xy: 2, 2
-  size: 28, 30
-  orig: 28, 30
+  xy: 33, 63
+  size: 30, 36
+  orig: 30, 36
   offset: 0, 0
   index: -1
 BRleg2
-  rotate: false
-  xy: 93, 169
-  size: 24, 31
-  orig: 24, 31
+  rotate: true
+  xy: 211, 230
+  size: 24, 39
+  orig: 24, 39
   offset: 0, 0
   index: -1
 FRleg1
-  rotate: true
-  xy: 186, 223
-  size: 27, 30
-  orig: 27, 30
+  rotate: false
+  xy: 85, 100
+  size: 28, 36
+  orig: 28, 36
   offset: 0, 0
   index: -1
 FRleg2
-  rotate: false
-  xy: 64, 92
-  size: 22, 31
-  orig: 22, 31
+  rotate: true
+  xy: 2, 17
+  size: 20, 38
+  orig: 20, 38
   offset: 0, 0
   index: -1
 Lear
+  rotate: true
+  xy: 111, 186
+  size: 27, 52
+  orig: 27, 52
+  offset: 0, 0
+  index: -1
+Leye
   rotate: false
-  xy: 64, 125
-  size: 21, 45
-  orig: 21, 45
+  xy: 74, 46
+  size: 9, 15
+  orig: 9, 15
   offset: 0, 0
   index: -1
 Rear
   rotate: false
-  xy: 93, 202
-  size: 25, 48
-  orig: 25, 48
+  xy: 2, 39
+  size: 29, 60
+  orig: 29, 60
+  offset: 0, 0
+  index: -1
+Reye
+  rotate: true
+  xy: 65, 80
+  size: 19, 16
+  orig: 19, 16
   offset: 0, 0
   index: -1
 body
-  rotate: true
-  xy: 2, 70
-  size: 100, 60
-  orig: 100, 60
+  rotate: false
+  xy: 2, 180
+  size: 107, 74
+  orig: 107, 74
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 2, 172
-  size: 89, 78
-  orig: 89, 78
+  xy: 2, 101
+  size: 81, 77
+  orig: 81, 77
   offset: 0, 0
   index: -1
 item
   rotate: false
-  xy: 2, 34
-  size: 38, 34
-  orig: 38, 34
+  xy: 111, 215
+  size: 56, 39
+  orig: 56, 39
   offset: 0, 0
   index: -1
 mouth
-  rotate: false
-  xy: 119, 178
-  size: 27, 20
-  orig: 27, 20
+  rotate: true
+  xy: 65, 63
+  size: 15, 18
+  orig: 15, 18
   offset: 0, 0
   index: -1
 mouth1
-  rotate: true
-  xy: 42, 37
+  rotate: false
+  xy: 169, 206
   size: 31, 19
   orig: 31, 19
   offset: 0, 0
   index: -1
 stick
   rotate: false
-  xy: 64, 69
-  size: 21, 21
-  orig: 21, 21
+  xy: 2, 2
+  size: 10, 13
+  orig: 10, 13
   offset: 0, 0
   index: -1

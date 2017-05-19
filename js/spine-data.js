@@ -718,6 +718,7 @@ Girls.prototype = {
             var skelpath = name + "/" + skin + ".skel";
             var atlaspath;
             var pngpath;
+            var jsonpath;
             if($.isEmptyObject(girlSkin["atlas"])){
                 atlaspath = name + "/" + skin + ".atlas";
             }else{
@@ -730,7 +731,12 @@ Girls.prototype = {
             }
             this.loader.view = v;
             this.loader.next = baseName;
-            this.loader.add(baseName + "-skel", skelpath, { "xhrType" : "arraybuffer", "metadata" : { "type" : "skel", "name" : name, "skin" : skin } });
+            if($.isEmptyObject(girlSkin["json"])){
+                this.loader.add(baseName + "-skel", skelpath, { "xhrType" : "arraybuffer", "metadata" : { "type" : "skel", "name" : name, "skin" : skin } });
+            }else{
+                jsonpath = name + "/" + girlSkin["json"];
+                this.loader.add(baseName + "-json", jsonpath, { "metadata" : { "type" : "text", "name" : name, "skin" : skin } });
+            }
             this.loader.add(baseName + "-atlas", atlaspath, { "metadata" : { "type" : "atlas" } });
             this.loader.add(baseName + "-png", pngpath, { "metadata" : { "type" : "png" } });
             this.loader.load((loader, resources) => {
@@ -755,11 +761,17 @@ Girls.prototype = {
                 // }
 
                 var skel = new SkeletonBinary();
-                name = resources[loader.next + "-skel"].metadata.name;
-                skin = resources[loader.next + "-skel"].metadata.skin;
-                skel.data = new Uint8Array(resources[loader.next + "-skel"].data);
-                skel.initJson();
-                rawSkeletonData = skel.json;
+                if($.isEmptyObject(resources[loader.next + "-json"])){
+                    name = resources[loader.next + "-skel"].metadata.name;
+                    skin = resources[loader.next + "-skel"].metadata.skin;
+                    skel.data = new Uint8Array(resources[loader.next + "-skel"].data);
+                    skel.initJson();
+                    rawSkeletonData = skel.json;
+                }else{
+                    name = resources[loader.next + "-json"].metadata.name;
+                    skin = resources[loader.next + "-json"].metadata.skin;
+                    rawSkeletonData = JSON.parse(resources[loader.next + "-json"].data);
+                }
                 rawAtlasData = resources[loader.next + "-atlas"].data;
                 rawPngData = resources[loader.next + "-png"].data;
 

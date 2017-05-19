@@ -18,7 +18,7 @@
 `如果想停下请再输入 GirlsTurn.stop = true `<br/>
 `动画修复？家具？不存在的 ~\(≥▽≤)/~`<br/>
 
-[更新日志](https://github.com/cullus/gfSpinePiXi/raw/master/更新日志.md)
+[更新日志](更新日志.md)
 
 ---
 

@@ -320,6 +320,7 @@ var gameview = {
 }
 
 var GirlsTurn = {
+	stop : false,
 	sum : 0,
 	girlsNum : 0,
 	nextGirlNum : 0,
@@ -333,6 +334,8 @@ var GirlsTurn = {
 		GirlsTurn.nextGirl();
 	},
 	nextGirl : function(){
+		if(GirlsTurn.stop)
+			return;
 		if(GirlsTurn.nextGirlNum >= GirlsTurn.girlsNum){
 			return;
 		}
@@ -343,6 +346,8 @@ var GirlsTurn = {
 		GirlsTurn.nextSkin();
 	},
 	nextSkin : function(){
+		if(GirlsTurn.stop)
+			return;
 		if(GirlsTurn.nextSkinNum >= GirlsTurn.skinsNum){
 			GirlsTurn.nextGirl();
 			return;
@@ -353,6 +358,8 @@ var GirlsTurn = {
 		setTimeout("GirlsTurn.nextAnimate()", 200);
 	},
 	nextAnimate : function(){
+		if(GirlsTurn.stop)
+			return;
 		GirlsTurn.animateNum = preview.selectAnimation.children("option").length;
 		preview.selectAnimation[0].selectedIndex = GirlsTurn.nextAnimateNum++;
 		var girlname = preview.selectCharacter.children("option")[preview.selectCharacter[0].selectedIndex].value;

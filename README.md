@@ -18,10 +18,7 @@
 `如果想停下请再输入 GirlsTurn.stop = true `<br/>
 `动画修复？家具？不存在的 ~\(≥▽≤)/~`<br/>
 
-## 2017.5.6 更新
-本模拟器正式支持 `skel` 二进制文件<br/>
-人物更新<br/>
-人物 皮肤分类存放<br/>
+[更新日志](https://github.com/cullus/gfSpinePiXi/raw/master/更新日志.md)
 
 ---
 

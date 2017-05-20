@@ -51,18 +51,17 @@ var preview = {
 			if(this.selectedIndex == 0)
 				return;
 			var name = $(this).val();
-			var strSkinsOption = "<option>请选择</option>";
+			var strSkinsOption = "";
 			if(!girlsData[name])
 				return;
 			for(var skin in girlsData[name]){
 				strSkinsOption += "<option value=\"" + skin + "\">" + skin + "</option>";
 			}
 			preview.selectSkin.html(strSkinsOption);
+      preview.selectSkin.change();
 		});
 
 		preview.selectSkin.change(function(){
-			if(this.selectedIndex == 0)
-				return;
 			var skin = $(this).val();
 			game.girls.load(preview.selectCharacter.val(), preview.selectSkin.val(), preview);
 		});

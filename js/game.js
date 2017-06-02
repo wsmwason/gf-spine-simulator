@@ -43,19 +43,25 @@ var preview = {
     preview.isUpdate = true;
 
     var stringCharacter = "<option>請選擇</option>";
-    for (var name in girlsData) {
-      var optionName = (girlsDataTw[name]) ? girlsDataTw[name].name : name;
-      stringCharacter += "<option value=\"" + name + "\">" + optionName + "</option>";
+    for (var type in girlsOptions) {
+      stringCharacter+= '<optgroup label="' + type + '">';
+      for (var name in girlsOptions[type]) {
+        var optionName = (girlsDataTw[name]) ? girlsDataTw[name].name : name;
+        stringCharacter+= '<option value="' + name + '">' + optionName + '</option>';
+      }
+      stringCharacter+= '</optgroup>';
     }
     preview.selectCharacter.html(stringCharacter);
     preview.selectCharacter.change(function(){
       if(this.selectedIndex == 0)
         return;
       var name = $(this).val();
+      var type = $(':selected', this).parent().attr('label');
       var strSkinsOption = "";
-      if(!girlsData[name])
+      if (!girlsData[name]) {
         return;
-      for(var skin in girlsData[name]){
+      }
+      for (var skin in girlsData[name]) {
         strSkinsOption += "<option value=\"" + skin + "\">" + skin + "</option>";
       }
       preview.selectSkin.html(strSkinsOption);

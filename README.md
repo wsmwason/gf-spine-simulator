@@ -1,5 +1,7 @@
 # 少女前線Q版人形模擬器 Girls Front Line Spine Simulator
 
+![預覽](https://raw.githubusercontent.com/wsmwason/gf-spine-simulator/master/images/preview.png)
+
 這個專案本來 fork 於 [cullus/gfSpinePiXi](https://github.com/cullus/gfSpinePiXi) 少女前线Q版模拟器，
 不過為了加上一些跟 [少女前線資料庫](https://gf.fws.tw/) 的整合 feature，
 已獲得原作者 [cullus](https://github.com/cullus) 同意以 MIT Lincense Duplicate 獨立專案。

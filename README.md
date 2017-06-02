@@ -1,34 +1,34 @@
-# gfSpinePiXi 少女前线Q版模拟器
+# 少女前線Q版人形模擬器 Girls Front Line Spine Simulator
 
-[![view]](https://cullus.github.io/gfSpinePiXi/)
+這個專案本來 fork 於 [cullus/gfSpinePiXi](https://github.com/cullus/gfSpinePiXi) 少女前线Q版模拟器，
+不過為了加上一些跟 [少女前線資料庫](https://gf.fws.tw/) 的整合 feature，
+已獲得原作者 [cullus](https://github.com/cullus) 同意以 MIT Lincense Duplicate 獨立專案。
 
-[网页模拟器](https://cullus.github.io/gfSpinePiXi/)
+## gf-spine-simulator
 
----
+ * 整合版預覽網址 https://gf.fws.tw/db/guns/simulator
+ * 原始修改版預覽網址 https://gf.fws.tw/gf-spine-simulator/
 
-* 收录 `大部分` 枪娘的Q版动作，有部分 `遗漏` （￣▽￣） <br/>
-* 仅仅是 `模拟` ，和原版动作有一定出入 ╮(╯3╰)╭ <br/>
+## Install Bower Dependencies
 
----
+```
+bower install
+```
 
-## 2017.5.19 更新
-人物更新<br/>
-一些小BUG修复，`现在大概可以完整的跑一遍了` ╰╮o(￣▽￣///) <br/>
-`对自己网速有信心的不妨去控制台试试 GirlsTurn.init() ⊙ω⊙ `<br/>
-`如果想停下请再输入 GirlsTurn.stop = true `<br/>
-`动画修复？家具？不存在的 ~\(≥▽≤)/~`<br/>
+## 整合版的功能
 
-[更新日志](更新日志.md)
+ * 分享並儲存自己設定的角色
+ * 針對分享的內容評論
 
----
+## 原始修改版主要功能
 
-## 更新预告
-在很久的未来加入家具支持 =￣ω￣=
+ * 收錄 `大部份` 槍娘的Q版動作
+ * 僅是模擬，和遊戲中動作不一定完全相同
+ * UI 介面調整
+ * 槍娘顯示翻譯名稱
+ * 儲存圖片功能
+ * 分享功能
 
----
+## License
 
-不定时更新，也许会`弃坑` <(￣3￣)> <br/>
-
----
-
-[view]:https://github.com/cullus/gfSpinePiXi/raw/master/images/bgg.jpg
+MIT

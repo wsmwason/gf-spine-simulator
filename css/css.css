@@ -1,0 +1,97 @@
+html { width: 100%; height: 100%; font-size: 16px; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, "微軟正黑體", "微软雅黑", "メイリオ", "맑은 고딕", sans-serif; font-size: 15px; }
+
+/*clearfix*/
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+html[xmlns] .clearfix {
+  display: block;
+}
+
+* html .clearfix {
+  height: 1%;
+}
+/*clearfix*/
+
+.left { float: left; }
+
+nav.controlUi {
+  margin-bottom: 20px;
+}
+.container {
+  width: 850px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.preview { width: 30em; }
+.Canvas { border: 1px solid #CCC; }
+canvas { width: 100%; height: 100%; }
+.preCanvas { width: 16em; height: 14em; }
+.preUI { width: 12em; margin-left: 2em; }
+.conSelect { width: 12em; font-size: 1em; margin: 0.5em 0; }
+.conSelect select { width: 6em; }
+
+.charOptions {
+  margin-top: 10px;
+  border: 1px solid #CCC;
+  padding: 10px;
+  border-radius: 5px;
+  opacity: 1;
+}
+.conRange {
+  width: 100%;
+}
+.conRange span {
+  float: left;
+  width: 40px;
+  font-size: 12px;
+  text-align: right;
+}
+.conRange input, .conRange select {
+  width: calc(100% - 45px);
+  margin-left: 4px;
+  float: left;
+}
+.gameview { width : 24em; margin-left: -1px; padding-left: 2em; }
+.canvasFps {
+  width: 56em;
+  margin-top: -25px;
+  font-size: 12px;
+  color: #999;
+}
+.gameCanvas {
+  width: 56em;
+  height: 31.5em;
+}
+.convasControl {
+  width: 56em;
+  margin-top: 10px;
+}
+
+#saveImage {
+  display: none;
+  margin: 10px;
+  padding: 3px;
+  border: 1px solid #FF0000;
+  border-radius: 5px;
+}
+
+footer {
+  margin: 15px 0;
+  text-align: center;
+}
+footer p {
+  margin: 0;
+}

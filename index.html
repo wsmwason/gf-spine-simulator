@@ -1,109 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>少女前线Q版枪娘模拟器</title>
-	<style type="text/css">
-		* { margin: 0; padding: 0; }
-		html { width: 100%; height: 100%; font-size: 16px; }
-		body { width: 100%; height: 100%; font-size: 1em; color: #fff; background: url(images/bg.jpg) center no-repeat; background-size: cover; }
-
-		.left { float: left; }
-		.clear { clear: both; }
-
-		.container { width: 56em; margin: 0 auto; padding: 2em 0; position: relative;}
-
-		.header {  }
-		.htitle { font-size: 2em; line-height: 1.5em; text-align: center; }
-
-		.view { float: left; }
-		.preview { width: 30em; }
-		.Canvas { border: 1px solid #fff; margin: -1px; background: url(images/canvasbg.jpg) no-repeat; background-size: 100% 100%; }
-		canvas { width: 100%; height: 100%; }
-		.preCanvas { width: 16em; height: 14em; }
-		.preUI { width: 12em; height: 14em; margin-left: 2em; }
-		.conSelect { width: 12em; font-size: 1em; margin: 0.5em 0; }
-		.conSelect select { width: 6em; }
-		.conButton { width: 4em; text-align: center; line-height: 2em; border: 1px solid #fff; border-radius: 4px; margin: 0.5em; cursor: pointer; }
-
-		.gameview { width : 24em; margin-left: -1px; padding-left: 2em; border-left: 1px solid #fff; }
-		.gameCanvas { width: 56em; height: 31.5em; }
-	</style>
+  <meta charset="UTF-8">
+  <title>少女前線Q版人形模擬器</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/css.css">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6884291-10', 'auto');
+    ga('send', 'pageview');
+  </script>
 </head>
 <body>
-	<div class="container">
-		<div class="header">
-			<div class="htitle">少女前线Q版枪娘模拟器</div>
-		</div>
-		<div class="preview view">
-			<div class="preCanvas Canvas left"></div>
-			<div class="preUI UI left">
-				<div class="preSelectCharacter conSelect">
-					<span>人物：</span>
-					<select></select>
-				</div>
-				<div class="preSelectSkin conSelect">
-					<span>皮肤：</span>
-					<select></select>
-				</div>
-				<div class="preSelectAnimation conSelect">
-					<span>动作：</span>
-					<select></select>
-				</div>
-				<div class="preAddRole conButton">添加</div>
-				<div class="preStopRole conButton">停止</div>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="gameview view">
-			<div class="gameUI UI">
-				<div class="gameSelectBackground left conSelect">
-					<span>背景：</span>
-					<select></select>
-				</div>
-				<div class="gameShowFPS left conSelect">
-					<span>帧数：</span>
-					<input type="checkbox" checked="checked" />
-				</div>
-				<div class="clear"></div>
-				<div class="gameSelectCharacter left conSelect">
-					<span>人物：</span>
-					<select></select>
-				</div>
-				<div class="gameSelectAnimation left conSelect">
-					<span>动作：</span>
-					<select></select>
-				</div>
-				<div class="clear"></div>
-				<div class="gameSelectposX conRange">
-					<span>X：</span>
-					<input type="range" min="0" max="800" />
-				</div>
-				<div class="gameSelectposY conRange">
-					<span>Y：</span>
-					<input type="range" min="0" max="800" />
-				</div>
-				<div class="gameSelectscale conRange">
-					<span>缩放：</span>
-					<input type="range" min="200" max="3000" />
-				</div>
-				<div class="gameTurnRole conButton left">翻转</div>
-				<div class="gameStopRole conButton left">停止</div>
-				<div class="gameRemoveRole conButton left">移除</div>
-				<div class="clear"></div>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="clear"></div>
-		<div style="height: 2em;"></div>
-		<div class="gameCanvas Canvas"></div>
-	</div>
-	<script src="js/jquery-1.12.1.min.js"></script>
-	<script src="js/pixi/pixi.js"></script>
-	<script src="js/pixi/pixi-spine.js"></script>
-<!-- 	<script src="js/player.js"></script> -->
-	<script src="js/girlsData.js"></script>
-	<script src="js/spine-data.js"></script>
-	<script src="js/game.js"></script>
+  <div class="container">
+    <header>
+      <h1>少女前線Q版人形模擬器</h1>
+    </header>
+    <nav class="controlUi clearfix">
+      <div class="preCanvas Canvas left"></div>
+      <div class="preUI left">
+        <div class="form-group preSelectCharacter">
+          <label>人物：</label>
+          <select class="form-control"></select>
+        </div>
+        <div class="form-group preSelectSkin">
+          <label>扮裝：<small class="text-muted">R開頭為宿舍用</small></label>
+          <select class="form-control"></select>
+        </div>
+        <div class="form-group preSelectAnimation">
+          <label>動作：</label>
+          <select class="form-control"></select>
+        </div>
+        <button type="button" class="btn btn-primary preAddRole">加入</button>
+        <button type="button" class="btn btn-primary preStopRole">停止</button>
+      </div>
+      <div class="gameview left">
+        <div class="form-inline">
+          <div class="gameSelectCharacter form-group">
+            <label>已選人物：</label>
+            <select class="form-control"></select>
+          </div>
+        </div>
+
+        <div class="charOptions">
+          <div class="gameSelectAnimation form-group conRange clearfix">
+            <span style="margin-top:6px;">動作</span>
+            <select class="form-control input-sm"></select>
+          </div>
+          <div class="gameSelectposX form-group conRange clearfix">
+            <span>X</span>
+            <input type="range" min="0" max="800" />
+          </div>
+          <div class="gameSelectposY form-group conRange clearfix">
+            <span>Y</span>
+            <input type="range" min="0" max="800" />
+          </div>
+          <div class="gameSelectscale form-group conRange clearfix">
+            <span>縮放</span>
+            <input type="range" min="200" max="3000" />
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary btn-sm gameTurnRole">鏡像</button>
+            <button type="button" class="btn btn-primary btn-sm gameRemoveRole">移除</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="gameShowFPS canvasFps">
+      <input type="checkbox" checked="checked" /> FPS
+    </div>
+    <div class="gameCanvas Canvas"></div>
+
+    <nav class="convasControl form-inline">
+      <div class="gameSelectBackground form-group">
+        <span>背景：</span>
+        <select class="form-control input-sm"></select>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm gameSavePng pull-right" style="margin-left:10px;">存圖</button>
+      <button type="button" class="btn btn-primary btn-sm gameSaveStage pull-right" style="margin-left:10px;">分享</button>
+      <button type="button" class="btn btn-primary btn-sm gameStopRole pull-right">停止</button>
+    </nav>
+
+    <img id="saveImage" width="100%">
+
+    <footer>
+      <p class="text-muted">
+        <small>僅是模擬，和遊戲中動作不一定完全相同</small>
+      </p>
+      <p class="text-muted">所有圖像版權歸各繪師、雲母組、<a href="http://gf.txwy.tw/" target="_blank">天下網遊</a> 所有</p>
+      <p class="text-muted">
+          Original by: <a href="https://github.com/cullus" target="_blank">cullus</a>
+          <a href="https://github.com/cullus/gfSpinePiXi" target="_blank">gfSpinePiXi</a>
+      </p>
+      <p class="text-muted">GitHub: <a href="https://github.com/wsmwason/gf-spine-simulator">wsmwason/gf-spine-simulator</a></p>
+    </footer>
+  </div>
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/pixi/pixi.js"></script>
+  <script src="js/pixi/pixi-spine.js"></script>
+  <script src="js/girlsData.js"></script>
+  <script src="js/girlsData-plus.js"></script>
+  <script src="js/spine-data.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/game-plus.js"></script>
 </body>
 </html>

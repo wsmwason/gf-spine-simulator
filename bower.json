@@ -1,0 +1,20 @@
+{
+  "name": "gf-spine-simulator",
+  "homepage": "https://github.com/wsmwason/gf-spine-simulator",
+  "authors": [
+    "wsmwason <wsmwason@gmail.com>"
+  ],
+  "description": "Girls Front Line Spine Simulator",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

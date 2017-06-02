@@ -679,28 +679,28 @@ var BlendMode = ["normal", "additive", "multiply", "screen"];
 
 var AttachmentType = ["region", "boundingbox", "mesh", "skinnedmesh"];
 
-function AtlasData(){};
-
-AtlasData.prototype = {
-    data : null,
-    getData : function(url, fun){
-        var s = this;
-        this.callback = fun;
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url, true);
-        xhr.responseType = "text";
-        xhr.onload = function(e, n=s){
-            if(this.status==200 || this.status==0){
-                var data = this.responseText;
-                if(data){
-                    n.data = data;
-                    n.callback("atlas");
-                }
-            }
-        }
-        xhr.send();
-    }
-}
+//function AtlasData(){};
+//
+//AtlasData.prototype = {
+//    data : null,
+//    getData : function(url, fun){
+//        var s = this;
+//        this.callback = fun;
+//        var xhr = new XMLHttpRequest();
+//        xhr.open("GET", url, true);
+//        xhr.responseType = "text";
+//        xhr.onload = function(e, n=s){
+//            if(this.status==200 || this.status==0){
+//                var data = this.responseText;
+//                if(data){
+//                    n.data = data;
+//                    n.callback("atlas");
+//                }
+//            }
+//        }
+//        xhr.send();
+//    }
+//}
 
 function Girls(basePath){
     this.basePath = basePath;
@@ -709,6 +709,7 @@ function Girls(basePath){
 
 Girls.prototype = {
     spineData : {},
+    loadCache : {},
     load : function(name, skin, v){
         if(!girlsData[name] || !girlsData[name][skin])
             return ;
@@ -781,6 +782,8 @@ Girls.prototype = {
                 var spineAtlasParser = new PIXI.spine.SpineRuntime.AtlasAttachmentParser(spineAtlas);
                 var spineJsonParser = new PIXI.spine.SpineRuntime.SkeletonJsonParser(spineAtlasParser);
                 var skeletonData = spineJsonParser.readSkeletonData(rawSkeletonData, skin);
+                skeletonData.code = name;
+                skeletonData.skin = skin;
 
                 this.spineData[name] = this.spineData[name] || {};
                 this.spineData[name][skin] = skeletonData;
@@ -790,5 +793,98 @@ Girls.prototype = {
         }else{
             v.changeCanvas(this.spineData[name][skin]);
         }
+    },
+    loadAsync : function(name, skin, v){
+        console.log('Girls.loadAsync ' + name + ' : ' + skin);
+        if(!girlsData[name] || !girlsData[name][skin]) {
+            return;
+        }
+        if(this.loadCache[name] && this.loadCache[name][skin]) {
+            return;
+        }
+        this.loadCache[name] = this.loadCache[name] || {};
+        this.loadCache[name][skin] = true;
+        if(!this.spineData[name] || !this.spineData[name][skin]){
+            var girlSkin = girlsData[name][skin];
+            var baseName = name + "-" + skin;
+            var skelpath = name + "/" + skin + ".skel";
+            var atlaspath;
+            var pngpath;
+            var jsonpath;
+            if($.isEmptyObject(girlSkin["atlas"])){
+                atlaspath = name + "/" + skin + ".atlas";
+            }else{
+                atlaspath = name + "/" + girlSkin["atlas"] + ".atlas";
+            }
+            if($.isEmptyObject(girlSkin["png"])){
+                pngpath = name + "/" + skin + ".png";
+            }else{
+                pngpath = name + "/" + girlSkin["png"] + ".png";
+            }
+            this.loader.view = v;
+            this.loader.next = baseName;
+            if($.isEmptyObject(girlSkin["json"])){
+                this.loader.add(baseName + "-skel", skelpath, { "xhrType" : "arraybuffer", "metadata" : { "type" : "skel", "name" : name, "skin" : skin } });
+            }else{
+                jsonpath = name + "/" + girlSkin["json"];
+                this.loader.add(baseName + "-json", jsonpath, { "metadata" : { "type" : "text", "name" : name, "skin" : skin } });
+            }
+            this.loader.add(baseName + "-atlas", atlaspath, { "metadata" : { "type" : "atlas" } });
+            this.loader.add(baseName + "-png", pngpath, { "metadata" : { "type" : "png" } });
+            this.loader.on('progress', function () {
+                console.log('loading...');
+            });
+        }else{
+            v.loadToStage(this.spineData[name][skin]);
+        }
+    },
+
+    loadAll : function(defaultStageData){
+        this.loader.load((loader, resources) => {
+            var rawSkeletonData, rawAtlasData, rawPngData;
+
+            for (i in defaultStageData) {
+
+              var role = defaultStageData[i];
+              var resName = role.name + "-" + role.skin;
+
+              var skel = new SkeletonBinary();
+                if($.isEmptyObject(resources[resName + "-json"])){
+                    name = resources[resName + "-skel"].metadata.name;
+                    skin = resources[resName + "-skel"].metadata.skin;
+                    skel.data = new Uint8Array(resources[resName + "-skel"].data);
+                    skel.initJson();
+                    rawSkeletonData = skel.json;
+                }else{
+                    name = resources[resName + "-json"].metadata.name;
+                    skin = resources[resName + "-json"].metadata.skin;
+                    rawSkeletonData = JSON.parse(resources[resName + "-json"].data);
+                }
+
+              rawAtlasData = resources[resName + "-atlas"].data;
+              rawPngData = resources[resName + "-png"].data;
+
+              var spineAtlas = new PIXI.spine.SpineRuntime.Atlas(rawAtlasData, function(line, callback, pngData = rawPngData) {
+                  callback(new PIXI.BaseTexture(pngData));
+              });
+              var spineAtlasParser = new PIXI.spine.SpineRuntime.AtlasAttachmentParser(spineAtlas);
+              var spineJsonParser = new PIXI.spine.SpineRuntime.SkeletonJsonParser(spineAtlasParser);
+              var skeletonData = spineJsonParser.readSkeletonData(rawSkeletonData, role.skin);
+//              skeletonData.code = role.name;
+//              skeletonData.skin = role.skin;
+//              skeletonData.x = role.x;
+//              skeletonData.y = role.y;
+//              skeletonData.scale = role.scale;
+//              skeletonData.animation = role.animation;
+
+              this.spineData[name] = this.spineData[name] || {};
+              this.spineData[name][skin] = skeletonData;
+
+              //console.log(this.spineData);
+              //console.log(skeletonData.name);
+            }
+            loader.view.loadToStage(defaultStageData, this.spineData);
+
+        });
     }
 }

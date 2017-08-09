@@ -565,7 +565,6 @@ SkeletonBinary.prototype = {
                     var timeline = new Array(frameCount);
                     for(var frameIndex = 0; frameIndex < frameCount; frameIndex++){
                         var time = this.readFloat();
-                        var vertices = new Array();
                         var vertexCount;
                         if(attachment.type == "mesh"){
                             vertexCount = attachment.vertices.length;
@@ -573,31 +572,40 @@ SkeletonBinary.prototype = {
                             vertexCount = attachment.uvs.length * 3 * 3;
                             // This maybe wrong
                         }
+
+                        var vertices = new Array(vertexCount);
+                        for (var verticeIdx = 0; verticeIdx < vertexCount; verticeIdx++){
+                          vertices[verticeIdx] = 0.0;
+                        }
+
+                        // ToDo: I have no idea why we need this
+                        var bugFixMultiplicator = 0.1;
+
                         var end = this.readInt(true);
-                        if(end != 0){
-                            var vertices = new Array(vertexCount);
+                        if (end == 0) {
+                          if (attachment.type == "mesh") {
+                            for (var verticeIdx = 0; verticeIdx < vertexCount; verticeIdx++){
+                              vertices[verticeIdx] += attachment.vertices[verticeIdx] * bugFixMultiplicator;
+                            }
+                          }
+                        } else {
                             var start = this.readInt(true);
                             end += start;
-                            if(scale == 1){
-                                for(var v = start; v < end; v++){
-                                    vertices[v] = this.readFloat();
-                                }
-                            }else{
-                                for(var v = start; v < end; v++){
-                                    vertices[v] = this.readFloat() * scale;
-                                }
+
+                            for(var v = start; v < end; v++){
+                                vertices[v] = this.readFloat() * scale;
                             }
+
                             if(attachment.type == "mesh"){
                                 var meshVertices = attachment.vertices;
                                 for(var v = 0, vn = vertices.length; v < vn; v++){
-                                    vertices[v] += meshVertices[v];
+                                    vertices[v] += meshVertices[v] * bugFixMultiplicator;
                                 }
                             }
                         }
                         timeline[frameIndex] = {};
                         timeline[frameIndex].time = time;
-                        if(vertices.length > 0)
-                            timeline[frameIndex].vertices = vertices;
+                        timeline[frameIndex].vertices = vertices;
                         if(frameIndex < frameCount - 1)
                             this.readCurve(frameIndex, timeline);
                     }

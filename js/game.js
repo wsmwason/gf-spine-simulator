@@ -9,7 +9,7 @@ if (typeof resPasePath === 'undefined') {
 var game = {
   init : function(){
     game.girls = new Girls(resPasePath + "character/");
-    game.background = ["Airport", "Bridge", "Forest", "IceLake", "Sonw", "Street"];
+    game.background = ["Airport", "Bridge", "Forest", "IceLake", "Snow", "Street"];
     preview.init();
     gameview.init();
     var stageLoaded = false;
